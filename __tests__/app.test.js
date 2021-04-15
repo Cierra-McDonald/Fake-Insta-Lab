@@ -23,10 +23,16 @@ describe('lab-13-fake-instagram routes', () => {
     .send({
       user: newUser.username,
       photo_url: 'http://photo.com',
+      caption: 'coolbeans',
+      tags: null
+
     })
     expect(res.body).toEqual({
+      id: expect.any(String),
       user: newUser.username,
-      photo_url: 'http://photo.com',
+      photoUrl: 'http://photo.com',
+      caption: 'coolbeans',
+      tags: null
     })
   })
 });
