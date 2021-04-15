@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS posts CASCADE;
+DROP TABLE IF EXISTS posts;
 
 CREATE TABLE users (
     github_username TEXT NOT NULL PRIMARY KEY,
@@ -8,7 +8,7 @@ CREATE TABLE users (
 
 CREATE TABLE posts (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    userkk TEXT NOT NULL REFERENCES users(github_username),
+    username TEXT NOT NULL REFERENCES users(github_username),
     photo_url TEXT NOT NULL,
     caption TEXT NOT NULL,
     tags TEXT[]
