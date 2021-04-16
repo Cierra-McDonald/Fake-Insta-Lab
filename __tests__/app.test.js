@@ -6,6 +6,15 @@ const User = require('../lib/models/User');
 const Posts = require('../lib/models/Posts');
 const seed = require('../lib/utils/testData');
 
+jest.mock('../lib/middleware/ensureAuth.js', () => (req, res, next) => { 
+  req.user = { 
+    username: 'test_user',
+    photoUrl: 'http://photo.com',
+  };
+
+  next();
+});
+
 
 
 describe('lab-13-fake-instagram routes', () => {
@@ -55,12 +64,12 @@ describe('lab-13-fake-instagram routes', () => {
 
     }])
   })
-  it.only('gets a post by id', async ()=>{
+  it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
     expect(res.body).toEqual({
-      // id: expect.any(String),
-      comment_by: 'test_user2',
+      author: 'test_user2',
+      comment: 'this is my first comment!',
       user: 'test_user',
       photoUrl: 'http://photo.com',
       caption: 'coolbeans',
