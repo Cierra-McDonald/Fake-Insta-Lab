@@ -48,7 +48,7 @@ describe('lab-13-fake-instagram routes', () => {
     },
     {
       id: expect.any(String),
-      user: 'test_user',
+      user: 'test_user2',
       photoUrl: 'http://photo.com',
       caption: 'test post',
       tags: null
@@ -83,7 +83,7 @@ describe('lab-13-fake-instagram routes', () => {
 
     expect(res.body).toEqual({
       id: expect.any(String),
-      user: 'test_user',
+      user: 'test_user2',
       photoUrl: 'http://photo.com',
       caption: 'test post',
       tags: null
@@ -95,15 +95,22 @@ describe('lab-13-fake-instagram routes', () => {
     .post('/api/v1/comments')
     .send({
       comment: 'I commented on your post',
-      author: 'test_user',
+      author: 'test_user2',
       postId: '1',
     })
 
     expect(res.body).toEqual({
       id: expect.any(String),
       comment: 'I commented on your post',
-      author: 'test_user',
+      author: 'test_user2',
       postId: '1',
     })
   })
+  it('should delete a comment by the id', async () => { 
+    const res = await request(app)
+      .delete('/api/v1/comments/1')
+
+      expect(res.body).toEqual({comment: 'this is my first comment!'})
+  })
+
 });
