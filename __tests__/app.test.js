@@ -6,6 +6,15 @@ const User = require('../lib/models/User');
 const Posts = require('../lib/models/Posts');
 const seed = require('../lib/utils/testData');
 
+jest.mock('../lib/middleware/ensureAuth.js', () => (req, res, next) => { 
+  req.user = { 
+    username: 'test_user',
+    photoUrl: 'http://photo.com',
+  };
+
+  next();
+});
+
 
 
 describe('lab-13-fake-instagram routes', () => {
