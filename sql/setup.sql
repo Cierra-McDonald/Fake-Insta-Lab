@@ -18,6 +18,6 @@ CREATE TABLE posts (
 CREATE TABLE comments (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     comment_by TEXT NOT NULL REFERENCES users(github_username),
-    post TEXT NOT NULL REFERENCES posts(username),
+    post_id BIGINT NOT NULL REFERENCES posts(id),
     comment VARCHAR(280) NOT NULL
 )
