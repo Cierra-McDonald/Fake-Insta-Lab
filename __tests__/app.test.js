@@ -16,11 +16,6 @@ describe('lab-13-fake-instagram routes', () => {
 
   it('adds a post to the database', async ()=>{
 
-    // const newUser = await User.insert({
-    //   username: 'test_user',
-    //   photoUrl: 'http://avatar.com'
-    // })
-
     const res = await request(app)
     .post('/api/v1/posts')
     .send({
@@ -39,15 +34,7 @@ describe('lab-13-fake-instagram routes', () => {
     })
   })
   it('gets all posts from db', async()=>{
-    // const newUser = await User.insert({
-    //   username: 'test_user',
-    //   photoUrl: 'http://avatar.com'
-    // })
 
-    // await Posts.create('test_user','http://photo.com','coolbeans',
-    // )
-    // await Posts.create('test_user','http://photo.com','test post',
-    // )
     const res = await request(app)
     .get('/api/v1/posts')
 
@@ -71,5 +58,41 @@ describe('lab-13-fake-instagram routes', () => {
   it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      user: 'test_user',
+      photoUrl: 'http://photo.com',
+      caption: 'coolbeans',
+      tags: null
+
+    })
   })
+  it('upates the post caption', async()=>{
+    const res = await request(app)
+    
+    .patch('/api/v1/posts/2')
+    .send({caption: 'caption is updated'})
+
+    expect(res.body).toEqual({
+      caption: 'caption is updated',
+    })
+  })
+  it('deletes a post', async ()=>{
+    const res = await request(app)
+    .delete('/api/v1/posts/2')
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      user: 'test_user',
+      photoUrl: 'http://photo.com',
+      caption: 'test post',
+      tags: null
+
+    })
+  })
+  // it('it adds a comment to a post', async ()=>{
+  //   const res = await request(app)
+  //   .post('/api/v1/comments')
+  //   .send('test_user')
+  // })
 });
