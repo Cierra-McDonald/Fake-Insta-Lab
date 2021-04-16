@@ -90,9 +90,20 @@ describe('lab-13-fake-instagram routes', () => {
 
     })
   })
-  // it('it adds a comment to a post', async ()=>{
-  //   const res = await request(app)
-  //   .post('/api/v1/comments')
-  //   .send('test_user')
-  // })
+  it('it adds a comment to a post', async ()=>{
+    const res = await request(app)
+    .post('/api/v1/comments')
+    .send({
+      comment: 'I commented on your post',
+      author: 'test_user',
+      postId: '1',
+    })
+
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      comment: 'I commented on your post',
+      author: 'test_user',
+      postId: '1',
+    })
+  })
 });
