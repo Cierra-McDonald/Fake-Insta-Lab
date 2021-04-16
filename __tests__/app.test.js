@@ -55,15 +55,16 @@ describe('lab-13-fake-instagram routes', () => {
 
     }])
   })
-  it('gets a post by id', async ()=>{
+  it.only('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
     expect(res.body).toEqual({
-      id: expect.any(String),
+      // id: expect.any(String),
+      comment_by: 'test_user2',
       user: 'test_user',
       photoUrl: 'http://photo.com',
       caption: 'coolbeans',
-      tags: null
+      // tags: null
 
     })
   })
