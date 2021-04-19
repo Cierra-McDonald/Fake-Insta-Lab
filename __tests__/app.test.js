@@ -50,6 +50,13 @@ describe('lab-13-fake-instagram routes', () => {
     expect(res.body).toEqual(expect.any(Array))
   })
 
+
+  it('should return the top ten posts with the most comments', async () => {
+    const res = await request(app)
+      .get('/api/v1/posts/popular')
+        expect(res.body).toHaveLength(10)
+  })
+
   it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
@@ -104,6 +111,7 @@ describe('lab-13-fake-instagram routes', () => {
     })
   })
 
+
   it('should delete a comment by the id', async () => { 
     const res = await request(app)
       .delete('/api/v1/comments/1')
@@ -115,13 +123,4 @@ describe('lab-13-fake-instagram routes', () => {
         )
   })
 
-  // it('should return the top ten posts with the most comments', async () => {
-  //   const res = await request(app)
-  //     .get('/api/v1/posts/popular')
-  //     .then((res) => [
-  //       expect(res.body).toEqual({
-          
-  //       })
-  //     ])
-  // })
 });
