@@ -24,7 +24,6 @@ describe('lab-13-fake-instagram routes', () => {
   beforeEach(() => { return seed(); }); 
 
   it('adds a post to the database', async ()=>{
-
     const res = await request(app)
     .post('/api/v1/posts')
     .send({
@@ -42,17 +41,20 @@ describe('lab-13-fake-instagram routes', () => {
       tags: null
     })
   })
-  it('gets all posts from db', async()=>{
 
+  it('gets all posts from db', async()=>{
     const res = await request(app)
     .get('/api/v1/posts')
 
+
     expect(res.body).toEqual(expect.any(Array))
   })
+
   it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
     expect(res.body).toEqual({
+
       comments: expect.any(Array),
       user: expect.any(String),
       photoUrl: expect.any(String),
@@ -61,9 +63,9 @@ describe('lab-13-fake-instagram routes', () => {
 
     })
   })
-  it('upates the post caption', async()=>{
+
+  it('updates the post caption', async()=>{
     const res = await request(app)
-    
     .patch('/api/v1/posts/2')
     .send({caption: 'caption is updated'})
 
@@ -71,6 +73,7 @@ describe('lab-13-fake-instagram routes', () => {
       caption: 'caption is updated',
     })
   })
+
   it('deletes a post', async ()=>{
     const res = await request(app)
     .delete('/api/v1/posts/1')
@@ -83,6 +86,7 @@ describe('lab-13-fake-instagram routes', () => {
       tags: null
     })
   })
+
   it('it adds a comment to a post', async ()=>{
     const res = await request(app)
     .post('/api/v1/comments')
@@ -99,6 +103,7 @@ describe('lab-13-fake-instagram routes', () => {
       postId: '1',
     })
   })
+
   it('should delete a comment by the id', async () => { 
     const res = await request(app)
       .delete('/api/v1/comments/1')
@@ -110,4 +115,13 @@ describe('lab-13-fake-instagram routes', () => {
         )
   })
 
+  // it('should return the top ten posts with the most comments', async () => {
+  //   const res = await request(app)
+  //     .get('/api/v1/posts/popular')
+  //     .then((res) => [
+  //       expect(res.body).toEqual({
+          
+  //       })
+  //     ])
+  // })
 });
