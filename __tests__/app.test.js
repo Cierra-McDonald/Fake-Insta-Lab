@@ -122,13 +122,13 @@ describe('lab-13-fake-instagram routes', () => {
       expect(res.body).toEqual({comment: 'this is my first comment!'})
   })
 
-  it('should return the top ten posts with the most comments', async () => {
-    const res = await request(app)
-      .get('/api/v1/posts/popular')
-      .then((res) => [
-        expect(res.body).toEqual({
+  // it('should return the top ten posts with the most comments', async () => {
+  //   const res = await request(app)
+  //     .get('/api/v1/posts/popular')
+  //     .then((res) => [
+  //       expect(res.body).toEqual({
           
-        })
-      ])
-  })
+  //       })
+  //     ])
+  // })
 });
