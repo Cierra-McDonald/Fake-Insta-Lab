@@ -2,7 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const User = require('../lib/models/User');
+const User = require('../lib/services/User');
 const Posts = require('../lib/models/Posts');
 const seed = require('../lib/utils/testData');
 
@@ -50,13 +50,6 @@ describe('lab-13-fake-instagram routes', () => {
     expect(res.body).toEqual(expect.any(Array))
   })
 
-
-  it('should return the top ten posts with the most comments', async () => {
-    const res = await request(app)
-      .get('/api/v1/posts/popular')
-        expect(res.body).toHaveLength(10)
-  })
-
   it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
@@ -65,9 +58,7 @@ describe('lab-13-fake-instagram routes', () => {
       comments: expect.any(Array),
       user: expect.any(String),
       photoUrl: expect.any(String),
-      caption: expect.any(String),
-      // tags: null
-
+      caption: expect.any(String)
     })
   })
 
@@ -109,6 +100,18 @@ describe('lab-13-fake-instagram routes', () => {
       author: 'test_user',
       postId: '1',
     })
+  })
+
+  it('should return the top ten posts with the most comments', async () => {
+    const res = await request(app)
+      .get('/api/v1/posts/popular')
+        expect(res.body).toHaveLength(10)
+  })
+
+  it('should return the user with the mosts posts', async () => {
+    const res = await request(app)
+      .get('/api/v1/users/prolific')
+      expect(res.body).toHaveLength(10)
   })
 
 
