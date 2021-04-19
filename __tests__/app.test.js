@@ -24,7 +24,6 @@ describe('lab-13-fake-instagram routes', () => {
   beforeEach(() => { return seed(); }); 
 
   it('adds a post to the database', async ()=>{
-
     const res = await request(app)
     .post('/api/v1/posts')
     .send({
@@ -42,8 +41,8 @@ describe('lab-13-fake-instagram routes', () => {
       tags: null
     })
   })
-  it('gets all posts from db', async()=>{
 
+  it('gets all posts from db', async()=>{
     const res = await request(app)
     .get('/api/v1/posts')
 
@@ -61,9 +60,9 @@ describe('lab-13-fake-instagram routes', () => {
       photoUrl: 'http://photo.com',
       caption: 'test post',
       tags: null
-
     }])
   })
+
   it('gets a post by id', async ()=>{
     const res = await request(app)
     .get('/api/v1/posts/1')
@@ -73,13 +72,11 @@ describe('lab-13-fake-instagram routes', () => {
       user: 'test_user',
       photoUrl: 'http://photo.com',
       caption: 'coolbeans',
-      // tags: null
-
     })
   })
-  it('upates the post caption', async()=>{
+
+  it('updates the post caption', async()=>{
     const res = await request(app)
-    
     .patch('/api/v1/posts/2')
     .send({caption: 'caption is updated'})
 
@@ -87,6 +84,7 @@ describe('lab-13-fake-instagram routes', () => {
       caption: 'caption is updated',
     })
   })
+
   it('deletes a post', async ()=>{
     const res = await request(app)
     .delete('/api/v1/posts/2')
@@ -97,30 +95,40 @@ describe('lab-13-fake-instagram routes', () => {
       photoUrl: 'http://photo.com',
       caption: 'test post',
       tags: null
-
     })
   })
+
   it('it adds a comment to a post', async ()=>{
     const res = await request(app)
     .post('/api/v1/comments')
     .send({
       comment: 'I commented on your post',
-      author: 'test_user2',
+      author: 'test_user',
       postId: '1',
     })
 
     expect(res.body).toEqual({
       id: expect.any(String),
       comment: 'I commented on your post',
-      author: 'test_user2',
+      author: 'test_user',
       postId: '1',
     })
   })
-  // it('should delete a comment by the id', async () => { 
-  //   const res = await request(app)
-  //     .delete('/api/v1/comments/1')
 
-  //     expect(res.body).toEqual({comment: 'this is my first comment!'})
-  // })
+  it('should delete a comment by the id', async () => { 
+    const res = await request(app)
+      .delete('/api/v1/comments/1')
 
+      expect(res.body).toEqual({comment: 'this is my first comment!'})
+  })
+
+  it('should return the top ten posts with the most comments', async () => {
+    const res = await request(app)
+      .get('/api/v1/posts/popular')
+      .then((res) => [
+        expect(res.body).toEqual({
+          
+        })
+      ])
+  })
 });
